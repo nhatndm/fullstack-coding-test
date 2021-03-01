@@ -1,12 +1,22 @@
+import { useRef } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import DynamicText from "../components/DynamicText";
 
+// COMPONENT
 import { Flex, Center, Input, Box } from "@chakra-ui/react";
+import DynamicText, { IRef } from "../components/Dynamic";
 
 const Home = () => {
+  const dynamicRef = useRef<IRef>(null);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.value);
+    if (!dynamicRef.current) {
+      throw new Error("Please assign dynamic's ref into Dynamic component");
+    }
+
+    if (dynamicRef.current) {
+      dynamicRef.current.onChange(e.target.value);
+    }
   };
 
   return (
@@ -18,7 +28,7 @@ const Home = () => {
 
       <Box width="20rem" className={styles.main}>
         <Center flex={1} flexDirection="column">
-          <DynamicText />
+          <DynamicText ref={dynamicRef} />
           <Input marginTop={15} variant="outline" onChange={onChange} />
         </Center>
       </Box>
