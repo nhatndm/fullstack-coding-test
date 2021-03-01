@@ -1,10 +1,10 @@
 import { useRef } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import styles from "styles/Home.module.css";
 
 // COMPONENT
 import { Flex, Center, Input, Box } from "@chakra-ui/react";
-import DynamicText, { IRef } from "../components/Dynamic";
+import DynamicText, { IRef } from "components/Dynamic";
 
 const Home = () => {
   const dynamicRef = useRef<IRef>(null);
