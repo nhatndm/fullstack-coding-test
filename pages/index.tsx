@@ -6,7 +6,10 @@ import styles from "styles/Home.module.css";
 import { Flex, Center, Input, Box } from "@chakra-ui/react";
 import DynamicText, { IRef } from "components/Dynamic";
 
-const Home = () => {
+// HOOK
+import { withAuthenticated } from "hooks/withAuthenticated";
+
+const Home = (props) => {
   const dynamicRef = useRef<IRef>(null);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,4 +39,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withAuthenticated(Home);

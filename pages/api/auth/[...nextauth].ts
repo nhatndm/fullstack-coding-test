@@ -13,7 +13,6 @@ const providers = [
       password: { label: "Password", type: "password" },
     },
     authorize: async (credentials: any) => {
-      console.log(credentials);
       try {
         const response = await firebase
           .auth()
@@ -46,19 +45,24 @@ const callbacks = {
     if (user.status === "failure") {
       return false;
     }
+
     return true;
   },
 
   async jwt(token, user) {
     if (user) {
-      token.accessToken = await user.token;
+      token.accessToken = user.data.token;
+      token.email = user.data.email;
     }
 
     return token;
   },
 
   async session(session, token) {
-    session.accessToken = token.accessToken;
+    session.user = {
+      accessToken: token.accessToken,
+      email: token.email,
+    };
 
     return session;
   },
@@ -67,9 +71,6 @@ const callbacks = {
 const options = {
   providers,
   callbacks,
-  pages: {
-    error: "/signin", // Changing the error redirect page to our custom login page
-  },
 };
 
 export default (req, res) => NextAuth(req, res, options);

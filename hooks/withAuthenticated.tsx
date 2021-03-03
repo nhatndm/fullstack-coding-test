@@ -1,0 +1,55 @@
+import React, { Component } from "react";
+import { getSession, session } from "next-auth/client";
+
+interface IState {
+  isLoading: boolean;
+}
+
+interface IProps {
+  user: {
+    email: string;
+    token: string;
+  };
+}
+
+export const withAuthenticated = (AuthComponent) => {
+  return class Authenticated extends Component<IProps, IState> {
+    static async getInitialProps(ctx) {
+      const session = await getSession(ctx);
+
+      if (!session) {
+        ctx.res.writeHead(302, {
+          Location: "signin",
+        });
+
+        ctx.res.end();
+
+        return {};
+      }
+
+      return { user: session.user };
+    }
+
+    constructor(props: IProps) {
+      super(props);
+      this.state = {
+        isLoading: true,
+      };
+    }
+
+    componentDidMount() {
+      if (this.props.user) {
+        this.setState({ isLoading: false });
+      }
+    }
+
+    render() {
+      const { isLoading } = this.state;
+      const { user } = this.props;
+
+      if (isLoading) return null;
+
+      return <AuthComponent user={user} />;
+    }
+  };
+};
