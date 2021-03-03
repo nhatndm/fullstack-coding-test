@@ -43,12 +43,7 @@ const SignUp = () => {
   };
 
   return (
-    <Flex
-      className={styles.container}
-      justifyContent="center"
-      alignItems="center"
-      flexDirection="row"
-    >
+    <Flex className={styles.container} flexDirection="row">
       <Box className={styles.box}>
         <AuthForm isLogin={false} formTitle="Sign Up" onSubmit={onSubmit} />
       </Box>
