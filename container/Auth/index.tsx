@@ -50,19 +50,18 @@ const AuthForm = ({ onSubmit, formTitle, isLogin }: IProps) => {
   return (
     <Formik
       initialValues={initalValue}
-      onSubmit={(user) => onSubmit(user)}
+      onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {({ touched, errors, isSubmitting }: FormikProps<User>) => (
         <Form>
           <Stack spacing={5}>
             <Text fontSize="2xl">{formTitle}</Text>
-
             <Field name="email">
               {({ field }) => (
                 <FormControl isInvalid={errors.email && touched.email}>
-                  <FormLabel htmlFor="name">Email</FormLabel>
-                  <Input {...field} id="name" placeholder="Email" />
+                  <FormLabel>Email</FormLabel>
+                  <Input {...field} placeholder="Email" />
                   <FormErrorMessage>{errors.email}</FormErrorMessage>
                 </FormControl>
               )}
@@ -70,8 +69,8 @@ const AuthForm = ({ onSubmit, formTitle, isLogin }: IProps) => {
             <Field name="password">
               {({ field }) => (
                 <FormControl isInvalid={errors.password && touched.password}>
-                  <FormLabel htmlFor="password">Password</FormLabel>
-                  <Input {...field} id="password" placeholder="Password" />
+                  <FormLabel>Password</FormLabel>
+                  <Input {...field} type="password" placeholder="Password" />
                   <FormErrorMessage>{errors.password}</FormErrorMessage>
                 </FormControl>
               )}
