@@ -26,7 +26,7 @@ export const callApi = async <T>(
     return response;
   } catch (error) {
     if (error.response.status === 401) {
-      signOut({ redirect: false });
+      signOut({ callbackUrl: "/signin" });
     }
   }
 };
