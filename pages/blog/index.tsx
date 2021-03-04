@@ -43,7 +43,9 @@ const BlogComponent = (props) => {
         url: APP_ENV.URL.POST.GET_POST,
       });
 
-      setBlogs(response.data);
+      if (response) {
+        setBlogs(response.data);
+      }
     }
 
     getAllBlog();

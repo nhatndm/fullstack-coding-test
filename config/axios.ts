@@ -26,7 +26,11 @@ export const callApi = async <T>(
     return response;
   } catch (error) {
     if (error.response.status === 401) {
-      signOut({ callbackUrl: `${window.location.origin}/signin` });
+      await signOut({
+        redirect: false,
+      });
+
+      window.location.replace("/signin");
     }
   }
 };

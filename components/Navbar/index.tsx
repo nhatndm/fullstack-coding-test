@@ -28,9 +28,13 @@ const NavBar = () => {
       <Box>
         <NavLink onClick={() => route.push("/blog")}>Blog</NavLink>
         <NavLink
-          onClick={() =>
-            signOut({ callbackUrl: `${window.location.origin}/signin` })
-          }
+          onClick={async () => {
+            await signOut({
+              redirect: false,
+            });
+
+            window.location.replace("/signin");
+          }}
         >
           Sign Out
         </NavLink>
