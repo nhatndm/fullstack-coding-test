@@ -27,7 +27,11 @@ const NavBar = () => {
       </Flex>
       <Box>
         <NavLink onClick={() => route.push("/blog")}>Blog</NavLink>
-        <NavLink onClick={() => signOut({ callbackUrl: "/signin" })}>
+        <NavLink
+          onClick={() =>
+            signOut({ callbackUrl: `${window.location.origin}/signin` })
+          }
+        >
           Sign Out
         </NavLink>
       </Box>
