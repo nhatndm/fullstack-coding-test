@@ -38,9 +38,13 @@ const BlogCard = ({ blog, onClick }: IProps) => {
         >
           {blog.title}
         </Text>
-        <Text maxWidth={250} mt={2} color="gray.500" isTruncated>
-          {blog.content}
-        </Text>
+        <Text
+          maxWidth={250}
+          mt={2}
+          color="gray.500"
+          isTruncated
+          dangerouslySetInnerHTML={{ __html: blog.content }}
+        />
       </Box>
     </Box>
   );

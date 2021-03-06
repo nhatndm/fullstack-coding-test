@@ -81,11 +81,11 @@ const BlogComponent = (props) => {
             <ModalBody>
               <Image borderRadius="lg" width={40} src={blog.img_url} alt="" />
 
-              <Text mt={5}>{blog.content}</Text>
+              <Text mt={5} dangerouslySetInnerHTML={{ __html: blog.content }} />
             </ModalBody>
 
             <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onCloseModal}>
+              <Button colorScheme="blue" onClick={onCloseModal}>
                 Close
               </Button>
             </ModalFooter>
