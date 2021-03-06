@@ -32,13 +32,23 @@ const Editor = dynamic(
 
 const BlogForm = ({ blog, onSubmit, onReset }: IProps) => {
   const initalValue: Blog = useMemo(() => {
-    return {
-      id: blog.id,
-      pid: blog.pid,
-      title: blog.title,
-      img_url: blog.img_url,
-      content: blog.content,
-    };
+    if (blog) {
+      return {
+        id: blog.id,
+        pid: blog.pid,
+        title: blog.title,
+        img_url: blog.img_url,
+        content: blog.content,
+      };
+    } else {
+      return {
+        id: "",
+        pid: 0,
+        title: "",
+        img_url: "",
+        content: "",
+      };
+    }
   }, [blog]);
 
   const validationSchema = useMemo(
