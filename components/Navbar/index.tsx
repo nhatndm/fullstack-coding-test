@@ -14,6 +14,7 @@ const NavLink = ({ children, ...props }) => (
 const NavBar = () => {
   const [session, loading] = useSession();
   const route = useRouter();
+  const isAdmin = session && session.user["isAdmin"];
 
   if (route.pathname === "/signin" || route.pathname === "/signup" || !session)
     return null;
@@ -26,6 +27,9 @@ const NavBar = () => {
         </NavLink>
       </Flex>
       <Box>
+        {isAdmin && (
+          <NavLink onClick={() => route.push("/dashboard")}>Dashboard</NavLink>
+        )}
         <NavLink onClick={() => route.push("/blog")}>Blog</NavLink>
         <NavLink
           onClick={async () => {

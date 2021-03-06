@@ -15,12 +15,12 @@ interface IProps {
   };
 }
 
-export const withAuthenticated = (AuthComponent) => {
+export const withAuthenticatedAdmin = (AuthComponent) => {
   return class Authenticated extends Component<IProps, IState> {
     static async getInitialProps(ctx) {
       const session = await getSession(ctx);
 
-      if (!session || !session.isAdmin) {
+      if (!session || !session.user["isAdmin"]) {
         ctx.res.writeHead(302, {
           Location: "signin",
         });

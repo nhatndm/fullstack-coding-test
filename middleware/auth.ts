@@ -7,7 +7,12 @@ export const authenticated = (fn: NextApiHandler) => async (
   req: NextApiRequest,
   res: NextApiResponse
 ) => {
-  const token = req.headers.authorization;
+  const bearToken = req.headers["authorization"];
+  let token = "";
+
+  if (bearToken) {
+    token = bearToken.split(" ")[1];
+  }
 
   try {
     await firebaseAdmin.auth().verifyIdToken(token);

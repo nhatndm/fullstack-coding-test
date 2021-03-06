@@ -3,7 +3,7 @@ import { signOut } from "next-auth/client";
 
 export interface CustomAxiosRequest<T> extends AxiosRequestConfig {
   token: string;
-  data?: T;
+  data?: Partial<T>;
   params?: T;
 }
 
@@ -12,7 +12,7 @@ export const callApi = async <T>(
 ): Promise<AxiosResponse<T>> => {
   const headers = {
     "Content-Type": "application/json",
-    authorization: requestConfig.token,
+    authorization: `bear ${requestConfig.token}`,
   };
 
   const newRequestConfig: AxiosRequestConfig = {
@@ -29,7 +29,6 @@ export const callApi = async <T>(
       await signOut({
         redirect: false,
       });
-
       window.location.replace("/signin");
     }
   }

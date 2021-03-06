@@ -16,12 +16,13 @@ export default {
     ),
     CLIENT_EMAIL: process.env.NEXT_PUBLIC_FIREBASE_CLIENT_EMAIL,
   },
+  APP: {
+    API: process.env.NEXT_PUBLIC_BACKEND_API,
+  },
   URL: {
     POST: {
-      CREATE_POST: "/api/blogs/create_post",
-      UPDATE_POST: "/api//blogsupdate_post",
-      DELETE_POST: "/api/blogs/delete_post",
-      GET_POST: "/api/blogs",
+      MAIN_ROUTE: "blog",
+      GET_POST: "api/blogs",
     },
   },
 };
