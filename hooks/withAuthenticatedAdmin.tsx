@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { getSession } from "next-auth/client";
 
+// FIREBASE
+import firebase from "config/firebase";
+
 interface IState {
   isLoading: boolean;
 }
@@ -17,7 +20,7 @@ export const withAuthenticated = (AuthComponent) => {
     static async getInitialProps(ctx) {
       const session = await getSession(ctx);
 
-      if (!session) {
+      if (!session || !session.isAdmin) {
         ctx.res.writeHead(302, {
           Location: "signin",
         });

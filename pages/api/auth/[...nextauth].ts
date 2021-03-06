@@ -4,6 +4,8 @@ import Providers from "next-auth/providers";
 // FIREBASE
 import firebase from "config/firebase";
 
+import firebaseAdmin from "config/firebase-admin";
+
 const providers = [
   Providers.Credentials({
     id: "email",
@@ -20,17 +22,26 @@ const providers = [
 
         const token = await response.user.getIdToken();
         const email = response.user.email;
+        const userUID = response.user.uid;
 
-        if (response) {
-          return {
-            status: "success",
-            data: {
-              email,
-              token,
-            },
-          };
-        }
+        const checkAdmin = await (
+          await firebaseAdmin
+            .firestore()
+            .collection("admin")
+            .where("uid", "==", userUID)
+            .get()
+        ).docs[0];
+
+        return {
+          status: "success",
+          data: {
+            email,
+            token,
+            isAdmin: !!checkAdmin,
+          },
+        };
       } catch (e) {
+        console.log(e);
         return {
           status: "failure",
           data: null,
@@ -53,6 +64,7 @@ const callbacks = {
     if (user) {
       token.accessToken = user.data.token;
       token.email = user.data.email;
+      token.isAdmin = user.data.isAdmin;
     }
 
     return token;
@@ -62,6 +74,7 @@ const callbacks = {
     session.user = {
       accessToken: token.accessToken,
       email: token.email,
+      isAdmin: token.isAdmin,
     };
 
     return session;
